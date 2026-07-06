@@ -7,7 +7,7 @@ params:
   defaultTheme: "dark"
   disableThemeToggle: true
   homeInfoParams:
-    Title: Exploring a new AI research paper every week.
+    Title: Exploring a new AI paper every week.
     Content: Dr. Robert Li and Saadia Carbis trace cutting-edge AI research back to the real world.
   socialIcons: # optional
     - name: "ApplePodcasts"

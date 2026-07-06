@@ -2,7 +2,9 @@ h1,
 h2 {
     font-family: "Literata", serif;
     font-optical-sizing: auto;
-    font-stretch: semi-expanded;
+}
+h1 {
+    font-style: italic;
 }
 .nav {
     justify-content: center;
