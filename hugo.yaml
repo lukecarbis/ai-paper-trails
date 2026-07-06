@@ -1,0 +1,48 @@
+baseURL: "https://aipapers.fm/"
+languageCode: "en-au"
+title: "AI Paper Trails"
+theme: "PaperMod"
+
+params:
+  defaultTheme: "dark"
+  disableThemeToggle: true
+  homeInfoParams:
+    Title: Exploring a new AI research paper every week.
+    Content: Dr. Robert Li and Saadia Carbis trace cutting-edge AI research back to the real world.
+  socialIcons: # optional
+    - name: "ApplePodcasts"
+      url: ""
+    - name: "Spotify"
+      url: ""
+    - name: "Overcast"
+      url: ""
+    - name: "RSS"
+      url: "/podcast.xml"
+  assets:
+    favicon: /favicon.ico
+    favicon16x16: /favicon-16x16.png
+    favicon32x32: /favicon-32x32.png
+    apple_touch_icon: /apple-touch-icon.png
+    safari_pinned_tab: /mask.svg
+  label:
+    text:
+    icon: /title.webp
+    iconHeight: 100
+
+markup:
+  goldmark:
+    renderer:
+      hardWraps: true
+      xhtml: true
+      unsafe: true
+
+outputs:
+  home: ["html", "rss", "podcast"]
+
+outputFormats:
+  podcast:
+    mediatype: "application/rss+xml"
+    baseName: "podcast"
+    isPlainText: false
+    noUgly: true
+    path: "/"
