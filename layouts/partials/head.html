@@ -43,8 +43,9 @@
 {{- $includes = $includes | append (" " | resources.FromString "assets/css/includes-blank.css")}}
 
 {{- if not (eq site.Params.assets.disableScrollBarStyle true) }}
-    {{- $ScrollStyle := (resources.Get "css/includes/scroll-bar.css") }}
-    {{- $includes = (append $ScrollStyle $includes) }}
+    {{- with resources.Get "css/includes/scroll-bar.css" }}
+        {{- $includes = $includes | append . }}
+    {{- end }}
 {{- end }}
 
 {{- $includes_all := $includes | resources.Concat "assets/css/includes.css" }}
