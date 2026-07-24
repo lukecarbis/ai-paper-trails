@@ -15,9 +15,10 @@
 	{{/* iTunes specific tags */}}
 	<itunes:author>{{ $podcastAuthor | html }}</itunes:author>
 	<itunes:image href="{{ "artwork.png" | absURL }}"/>
-	<itunes:subtitle text="Dr. Robert Li and Saadia Carbis trace cutting-edge AI research back to the real world."/>
+	<itunes:subtitle>Dr. Robert Li and Saadia Carbis trace cutting-edge AI research back to the real world.</itunes:subtitle>
 	<itunes:category text="Technology"/>
 	<itunes:category text="Education"/>
+	<itunes:type>episodic</itunes:type>
 	<itunes:explicit>false</itunes:explicit>
 	<itunes:owner>
 		<itunes:name>Saadia Carbis</itunes:name>
