@@ -11,11 +11,11 @@ params:
     Content: Dr. Robert Li and Saadia Carbis trace cutting-edge AI research back to the real world.
   socialIcons: # optional
     - name: "ApplePodcasts"
-      url: ""
+      url: "https://podcasts.apple.com/us/podcast/ai-paper-trails/id6794179050"
     - name: "Spotify"
-      url: ""
-    - name: "Overcast"
-      url: ""
+      url: "https://open.spotify.com/show/033UNVSCLrtUg0SvnuqQet"
+#    - name: "Overcast"
+#      url: ""
     - name: "RSS"
       url: "/podcast.xml"
   assets:
