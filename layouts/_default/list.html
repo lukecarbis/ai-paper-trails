@@ -87,7 +87,7 @@
   {{- if (ne (.Param "hideSummary") true) }}
   <div class="entry-content">
     {{- partial "audio-player.html" . -}}
-    <p>{{ .Summary | plainify | htmlUnescape }}</p>
+    <p>{{ .Summary | markdownify }}</p>
   </div>
   {{- end }}
   {{- if not (.Param "hideMeta") }}

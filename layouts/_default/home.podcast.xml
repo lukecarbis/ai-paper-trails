@@ -1,18 +1,19 @@
+{{- $podcastAuthor := "Dr. Robert Li & Saadia Carbis" -}}
 {{ printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
 <rss version="2.0"
 	xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
 	xmlns:content="http://purl.org/rss/1.0/modules/content/"
 	xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-	<title>{{ .Site.Title }}</title>
-	<link>{{ .Site.BaseURL }}</link>
-	<description>{{ .Site.Params.homeInfoParams.Content }}</description>
+	<title>{{ .Site.Title | html }}</title>
+	<link>{{ .Site.BaseURL | html }}</link>
+	<description>{{ .Site.Params.homeInfoParams.Content | html }}</description>
 	<language>{{ .Site.LanguageCode }}</language>
-	<lastBuildDate>{{ now.Format "Mon, 02 Jan 2006 15:04:05 -0700" }}</lastBuildDate>
+	<lastBuildDate>{{ now.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</lastBuildDate>
 	<atom:link href="{{ "podcast.xml" | absURL }}" rel="self" type="application/rss+xml"/>
 
 	{{/* iTunes specific tags */}}
-	<itunes:author>Dr. Robert Li & Saadia Carbis</itunes:author>
+	<itunes:author>{{ $podcastAuthor | html }}</itunes:author>
 	<itunes:image href="{{ "artwork.png" | absURL }}"/>
 	<itunes:subtitle text="Dr. Robert Li and Saadia Carbis trace cutting-edge AI research back to the real world."/>
 	<itunes:category text="Technology"/>
@@ -24,35 +25,33 @@
 	</itunes:owner>
 
 	{{ range where (where .Site.RegularPages "Section" "episodes") "Params.audio" "!=" nil }}
+	{{ $page := . }}
+	{{ $episodeTitle := .Title | default (printf "Episode %v" .Params.episode) }}
+	{{ $episodeAuthor := .Params.author | default $podcastAuthor }}
 	<item>
-	  <title>{{ .Title }}</title>
+	  <title>{{ $episodeTitle | html }}</title>
 	  <link>{{ .Permalink }}</link>
-	  <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" }}</pubDate>
+	  <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
 	  <guid>{{ .Permalink }}</guid>
 	  <description>{{ .Summary | html }}</description>
 
 	  {{/* Audio enclosure */}}
-	  {{ if isset .Params "audiolength" }}
-		  {{ $audiolength := .Params.audiolength }}
-		  {{ with .Params.audio }}
-		  <enclosure url="{{ . }}" type="audio/mpeg" length="{{ $audiolength }}"/>
+	  {{ with .Params.audio }}
+		  {{ $audio := . }}
+		  {{ with $page.Params.audiolength }}
+		  <enclosure url="{{ $audio }}" type="audio/mpeg" length="{{ . }}"/>
+		  {{ else }}
+		  <enclosure url="{{ $audio }}" type="audio/mpeg"/>
 		  {{ end }}
-	  {{ else }}
-		{{ with .Params.audio }}
-		  <enclosure url="{{ . }}" type="audio/mpeg"/>
-		{{ end }}
 	  {{ end }}
 
 	  {{/* iTunes specific item tags */}}
-	  <itunes:title>{{ .Title }}</itunes:title>
-	  <itunes:author>{{ $.Site.Params.author }}</itunes:author>
+	  <itunes:title>{{ $episodeTitle | html }}</itunes:title>
+	  <itunes:author>{{ $episodeAuthor | html }}</itunes:author>
 	  {{ with .Params.audioduration }}
 		 <itunes:duration>{{ . }}</itunes:duration>
 	  {{ end }}
-	  {{ with .Params.audiolength }}
-			  <itunes:length>{{ . }}</itunes:length>
-		  {{ end }}
-	  <itunes:summary>{{ .Summary | html }}</itunes:summary>
+	  <itunes:summary>{{ .Summary | plainify | htmlUnescape | html }}</itunes:summary>
 	  <itunes:explicit>false</itunes:explicit>
 	  {{ if isset .Params "season" }}<itunes:season>{{ .Params.season }}</itunes:season>{{ end }}
 	  {{ if isset .Params "episode" }}<itunes:episode>{{ .Params.episode }}</itunes:episode>{{ end }}

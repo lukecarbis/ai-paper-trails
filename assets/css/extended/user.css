@@ -41,3 +41,6 @@ h1 {
     display: block;
     overflow: auto;
 }
+.post-entry .entry-footer .permalink {
+    float: right;
+}

@@ -33,3 +33,7 @@
 {{- with ($scratch.Get "meta") }}
 {{- delimit . "&nbsp;·&nbsp;" | safeHTML -}}
 {{- end -}}
+
+{{- if and (.RelPermalink) -}}
+  {{- printf "<a class='permalink' href='%s'>★</a>" .RelPermalink | safeHTML }}
+{{- end }}
